@@ -1,0 +1,20 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form action="" method="post" enctype='multipart/form-data'>
+                <input type="file" name="code">
+                <input type="submit" value="上传">
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{%block js%}
+<script>
+    $(document).ready(function () {
+        $('ul #upload').addClass('active')
+    });
+</script>
+{%endblock%}
