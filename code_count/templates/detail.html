@@ -1,0 +1,27 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">编号</th>
+                    <th class="text-center">行数</th>
+                    <th class="text-center">日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for row in record_list%}
+                <tr>
+                    <td class="text-center">{{row['id']}}</td>
+                    <td class="text-center">{{row['line']}}</td>
+                    <td class="text-center">{{row['ctime']}}</td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,36 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">编号</th>
+                    <th class="text-center">用户名</th>
+                    <th class="text-center">昵称</th>
+                    <th class="text-center">提交记录</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for row in data_list%}
+                <tr>
+                    <td class="text-center">{{row['id']}}</td>
+                    <td class="text-center">{{row['user']}}</td>
+                    <td class="text-center">{{row['nickname']}}</td>
+                    <td class="text-center"><a href="/detail/{{row['id']}}">查看</a></td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{%block js%}
+<script>
+    $(document).ready(function () {
+        $('ul #user_list').addClass('active')
+    });
+</script>
+{%endblock%}
