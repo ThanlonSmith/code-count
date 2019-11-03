@@ -2,8 +2,12 @@
 {%block content%}
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <table class="table table-hover ">
+        <ol class="breadcrumb" style="background:  none">
+            <li><a href="/user_list">用户列表</a></li>
+            <li class="active">提交记录</li>
+        </ol>
+        <div class="col-md-6" style="margin-top: 168px">
+            <table class="table table-bordered ">
                 <thead>
                 <tr>
                     <th class="text-center">编号</th>
@@ -21,7 +25,127 @@
                 {%endfor%}
                 </tbody>
             </table>
+            <div class="text-center" style='font-weight: bold'>表1. 的代码提交信息表</div>
+        </div>
+        <div class="col-md-6">
+            <div id="container" style="height: 300px"></div>
+            <div class="text-center" style='font-weight: bold'>图1. 的代码提交情况(柱状图)</div>
+            <div hidden="hidden" id="time_data">{{time_list}}</div>
         </div>
     </div>
-</div>
-{%endblock%}
+    <div class="row">
+        <div class="col-md-6">
+            <div id="container_line" style="height: 300px"></div>
+            <div class="text-center" style='font-weight: bold'>图2. 的代码提交情况(柱状图)</div>
+        </div>
+        <div class="col-md-6">
+            <div id="container_smoothed_line" style="height: 300px"></div>
+            <div class="text-center" style='font-weight: bold'>图3. 的代码提交情况(柱状图)</div>
+        </div>
+    </div>
+    {%endblock%}
+    {%block js%}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+    <script>
+        $('ul #user_list a').css({'background': 'mediumvioletred'});
+    </script>
+    <script type="text/javascript">
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        app.title = '坐标轴刻度与标签对齐';
+        option = {
+            color: ['#3398DB'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    // data: {{data_list}},
+                    // data: data_list,
+                    data: {{time_list}},
+            axisTick:{
+                alignWithLabel: true}}
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+            series:[{
+                name: '行数',
+                type: 'bar',
+                barWidth: '60%',
+                data: {{data_list}}
+            }]
+        }
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+    <script type="text/javascript">
+        var dom = document.getElementById("container_line");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            xAxis: {
+                type: 'category',
+                data: {{time_list}}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: {{data_list}},
+                type: 'line'
+            }]
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+    <script type="text/javascript">
+        var dom = document.getElementById("container_smoothed_line");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            xAxis: {
+                type: 'category',
+                data: {{time_list}}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: {{data_list}},
+                type: 'line',
+                smooth: true
+            }]
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+    {%endblock%}

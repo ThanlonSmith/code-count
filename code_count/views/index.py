@@ -38,8 +38,15 @@ def detail(nid):
     sql = 'select id,line,ctime from record where user_id = %s'
     args = nid
     record_list = helper.fetch_all(sql, args)
+    # print(record_list)
+    data_list = []
+    time_list = []
+    for row in record_list:
+        data_list.append(row['line'])
+        time_list.append(float(row['ctime'].strftime("%m.%d")))  # datetime类型转换成字符串
     title = {'title': '提交代码详情页面'}
-    return render_template('detail.html', title=title, record_list=record_list)
+    return render_template('detail.html', title=title, record_list=record_list, data_list=data_list,
+                           time_list=time_list,)
 
 
 @bp_index.route('/upload', methods=['get', 'post'])  # 默认nid是string类型
