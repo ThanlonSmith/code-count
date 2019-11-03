@@ -33,11 +33,11 @@ def login():
     # session['user_nickname'] = data['nickname']
     # session['user_info'] = {'user_id': data['id'], 'user_nickname': data['nickname']}
     session['user_info'] = data
-    return redirect('/index')
+    return redirect('/')
 
 
 @account.route('/logout')
 def logout():
     if 'user_info' in session:
         del session['user_info']
-    return redirect('/index')
+    return redirect('/')

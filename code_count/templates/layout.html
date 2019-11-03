@@ -16,11 +16,11 @@
 <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0;background: #3398db">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/index" style="color: white;font-weight: bold">代码统计系统</a>
+            <a class="navbar-brand" href="/" style="color: white;font-weight: bold">简易代码统计系统</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li id="user_list"><a href="/user_list" style="font-weight: bold;color: white">用户列表</a></li>
+                <li id="user_list"><a href="/" style="font-weight: bold;color: white">用户列表</a></li>
                 <li id="upload"><a href="/upload" style="color: white;font-weight: bold">代码上传</a></li>
             </ul>
         </div>
@@ -41,12 +41,19 @@
 </nav>
 {%block content%}
 {%endblock%}
+<div class="container" style="margin-top: 30px;margin-bottom: 30px">
+    <div>
+        <div class="col-md-12 text-center" style="color: #c1c1c1">
+            Copyright © 2019-2020 39bysj. All Rights Reserved. <a target="_blank" href="https://bysj39.com"
+                                                                  style="color: mediumvioletred;font-weight: bold;text-decoration-line: none">39毕设网</a> 版权所有
+        </div>
+    </div>
+</div>
 </body>
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/bootstrap.min.js"></script>
 <script>
     $('.dropdown-toggle').dropdown();
-
 </script>
 {%block js%}
 {%endblock%}
