@@ -18,13 +18,13 @@ def process_request():
         return redirect('/login')
 
 
-@bp_index.route('/index')
-def index():
-    title = {'title': '欢迎使用代码统计系统!'}
-    return render_template('index.html', title=title)
+# @bp_index.route('/index')
+# def index():
+#     title = {'title': '欢迎使用代码统计系统!'}
+#     return render_template('index.html', title=title)
 
 
-@bp_index.route('/user_list')
+@bp_index.route('/')
 def user_list():
     title = {'title': '用户列表'}
     sql = 'select id,user,nickname from userinfo'
@@ -46,12 +46,13 @@ def detail(nid):
         time_list.append(float(row['ctime'].strftime("%m.%d")))  # datetime类型转换成字符串
     title = {'title': '提交代码详情页面'}
     return render_template('detail.html', title=title, record_list=record_list, data_list=data_list,
-                           time_list=time_list,)
+                           time_list=time_list, )
 
 
 @bp_index.route('/upload', methods=['get', 'post'])  # 默认nid是string类型
 def upload():
     title = {'title': '代码上传'}
+    msg = ''
     if request.method == 'GET':
         return render_template('upload.html', title=title)
     file_obj = request.files.get('code')  # <FileStorage: '' ('application/octet-stream')>,把上传的东西方内存了
@@ -60,9 +61,11 @@ def upload():
     # 1.检查上传文件的后缀名
     filename_ext = file_obj.filename.rsplit('.', maxsplit=1)  # 元组
     if len(filename_ext) != 2:
-        return '请上传压缩文件'
+        msg = '请上传压缩文件!'
+        return render_template('upload.html', msg=msg, title=title)
     if filename_ext[1] != 'zip':
-        return '请上传后缀名为zip的文件'
+        msg = '请上传后缀名为zip的文件'
+        return render_template('upload.html', msg=msg, title=title)
 
     # 2.接受用户上传的文件并写入到服务器本地
     file_path = os.path.join('files', file_obj.filename)
@@ -102,7 +105,6 @@ def upload():
                     if line.startswith(b'#'):
                         continue
                     file_num += 1
-
             # print(file_num, file_path)  # 每一个文件行数
             sum_num += file_num
     # print(sum_num)
