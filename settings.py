@@ -11,7 +11,7 @@ import pymysql
 class Config(object):
     SALT = b'123456'
     SECRET_KEY = 'THANLON'
-    MAX_CONTENT_LENGTH = 1024 * 1024 * 10  # 控制上传文件的大小为10MB，413错误
+    MAX_CONTENT_LENGTH = 1024 * 1024 * 100  # 控制上传文件的大小为10MB，413错误
     POOL = PooledDB(
         creator=pymysql,  # 使用连接数据库的模块
         maxconnections=6,  # 连接池允许的最大连接数，0和None表示不限制连接数
