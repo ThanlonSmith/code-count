@@ -24,7 +24,7 @@ class Config(object):
         # ping mysql服务端，检查是否可用，如果0和None表示不检查，1是每次请求(连接数据库)的时候,默认是1；2表示创建cursor的时候检查；4：执行cursor的execute方法检查；7表示总是检查
         ping=0,
         host='127.0.0.1',
-        port=3306,
+        port=3307,
         user='root',
         password='123456',
         database='codecount',
